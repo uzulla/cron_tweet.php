@@ -1,0 +1,7 @@
+{
+    "require": {
+        "dg/twitter-php": "^3.5",
+        "nesbot/carbon": "^1.20",
+        "uzulla/slog": "^0.2.2"
+    }
+}
