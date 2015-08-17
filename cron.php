@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 require "vendor/autoload.php";
 
 set_error_handler(function($errno, $errstr, $errfile, $errline){
-    $log = new \Uzulla\SLog\SimpleLogger(Logger::DEBUG, __DIR__."/run.log");
+    $log = new \Uzulla\SLog\SimpleLogger(\Uzulla\SLog\SimpleLogger::DEBUG, __DIR__."/run.log");
     $log->error($errstr. "/" . $errfile . ":". $errline);
     throw new ErrorException($errstr, $errno, 0, $errfile, $errline);
 });
