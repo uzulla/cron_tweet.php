@@ -1,14 +1,14 @@
 #!/usr/bin/env php
 <?php
 error_reporting(E_ALL);
+require "vendor/autoload.php";
+
 set_error_handler(function($errno, $errstr, $errfile, $errline){
     $log = new Logger(Logger::DEBUG, __DIR__."/run.log");
     $log->error($errstr. "/" . $errfile . ":". $errline);
     throw new ErrorException($errstr, $errno, 0, $errfile, $errline);
 });
 date_default_timezone_set('Asia/Tokyo');
-
-require "vendor/autoload.php";
 
 use Carbon\Carbon;
 use Uzulla\SLog\SimpleLogger as Logger;
