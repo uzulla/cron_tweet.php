@@ -58,7 +58,7 @@ $now = Carbon::create();
 foreach($data as $item){
     $item_date = $item['date'];
     if(
-        $item_date < $now->addMinutes(5) &&
+        $item_date < $now &&
         $item_date > $last_date
     ){
         $log->info("tweet:".$item['text']."\n");
