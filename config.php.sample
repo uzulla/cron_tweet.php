@@ -1,8 +1,13 @@
 <?php
 
 $token = [
-    'xx',
-    'xx',
-    'xx',
-    'xx'
+    'xx', // app token
+    'xx', // app token secret
+    'xx', // user access token
+    'xx' // user access token secret
 ];
+
+/*
+ * App token + App secret can create at http://apps.twitter.com/
+ * access_token + user_token_secret can generate at  http://apps.twitter.com/ or https://github.com/uzulla/make_twitter_access_token.php
+ */

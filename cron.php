@@ -16,19 +16,19 @@ use Uzulla\SLog\SimpleLogger as Logger;
 $log = new Logger(Logger::DEBUG, __DIR__."/run.log");
 $log->debug('start');
 
-// data loading
+// data load from TSV ( see data.tsv.sample )
 $raw_lines = explode("\n", file_get_contents(__DIR__.'/data.tsv'));
 $data = [];
 foreach($raw_lines as $line){
     if(mb_strlen($line)==0) continue;
     list($date, $text) = explode("\t", $line);
     $data[] = [
-        'date' => Carbon::createFromFormat('Y/m/d H:i:s', $date, "Asia/Tokyo"),
+        'date' => Carbon::createFromFormat('Y/m/d H:i:s', $date, "Asia/Tokyo"), // FIXME. THIS IS NOT INTERNATIONAL
         'text' => $text,
     ];
 }
 
-// check data
+// Check least execute datetime.
 $date_needle_file_path = __DIR__ . '/last_run_time.txt';
 try {
     if(!file_exists($date_needle_file_path)) {
@@ -42,9 +42,10 @@ try {
 }
 $last_date = Carbon::createFromTimestamp($date_needle);
 
+// update last execute time.
 file_put_contents($date_needle_file_path, time());
 
-//
+// create Twitter client.
 include(__DIR__. '/config.php');
 $t = new \Twitter(
     $token[0],
@@ -53,7 +54,7 @@ $t = new \Twitter(
     $token[3]
 );
 
-//
+// read data.tsv and post tweet.
 $now = Carbon::create();
 foreach($data as $item){
     $item_date = $item['date'];
